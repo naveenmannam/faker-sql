@@ -1,0 +1,51 @@
+
+usersCount
+= "SELECT COUNT(*) FROM users;";
+
+ conn.query
+(q, function
+(err, results, fields) {
+
+if (err) throw
+err;
+   console.log
+(results);
+ });
+
+ const data = [];
+
+ function loadUsers
+(count) {
+   for
+(let i = 1; i <= count; i++) {
+     data.push
+([faker.internet.email(), faker.date.past()]);
+   }
+ }
+
+ loadUsers
+(500);
+
+ insertUsers = "INSERT INTO users (email, created_at) VALUES ?";
+
+ conn.query
+(insertUsers, [data], function
+(err, results, fields) {
+
+if (err) throw
+err;
+   console.log
+(results);
+ });
+
+ getUsers = "SELECT * from users LIMIT 10";
+
+ conn.query
+(getUsers, function
+(err, results, fields) {
+
+if (err) throw
+err;
+   console.log
+(results);
+ });
